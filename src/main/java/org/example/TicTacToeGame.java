@@ -9,7 +9,6 @@ public class TicTacToeGame {
 
         gameLogic.initialiseGame();
 
-        //would like to put this chunk in a method but if I do this then the players aren't available to use outside the method
         Scanner TicTacToeScanner = new Scanner(System.in);
         System.out.println("Player 1, please enter your name:");
         String player1Name = TicTacToeScanner.nextLine();
@@ -41,13 +40,23 @@ public class TicTacToeGame {
             boolean gameOver = false;
             while (!gameOver) {
 
-                gameOver = gameLogic.checkBoardFull(gameBoard);
+                boolean winner = gameLogic.checkWinner(gameBoard);
+                boolean boardFull = gameLogic.checkBoardFull(gameBoard);
                 boolean playerOne = false;
-                if(!gameOver){
-                playerOne = true;}
-                else{
+                if(winner){
+                    String winnerName = gameLogic.nameOfWinner(gameBoard);
+                    System.out.println("Congratulations! " + winnerName + " wins!");
+                    gameOver = true;
+                    break;
+                }
+                else if(boardFull){
                     System.out.println("It's a draw!");
-                    break;}
+                    gameOver = true;
+                    break;
+                }
+                else{
+                    playerOne = true;
+                    }
                 while(playerOne) {
                     int player = 1;
 
@@ -69,20 +78,28 @@ public class TicTacToeGame {
 
                     board.printBoard(gameBoard);
 
-                    //check winner. If winner, set gameOver = true. Also check if all squares are full and therefore draw. then set gameOver = true.
-                    gameOver = gameLogic.checkBoardFull(gameBoard);
 
                     playerOne = false;
 
                 }
 
-                gameOver = gameLogic.checkBoardFull(gameBoard);
+                winner = gameLogic.checkWinner(gameBoard);
+                boardFull = gameLogic.checkBoardFull(gameBoard);
                 boolean playerTwo = false;
-                if(!gameOver){
-                    playerTwo = true;}
-                else{
+                if(winner){
+                    String winnerName = gameLogic.nameOfWinner(gameBoard);
+                    System.out.println("Congratulations! " + winnerName + " wins!");
+                    gameOver = true;
+                    break;
+                }
+                else if(boardFull){
                     System.out.println("It's a draw!");
-                    break;}
+                    gameOver = true;
+                    break;
+                }
+                else{
+                    playerTwo = true;
+                }
                 while(playerTwo) {
                     int player = 2;
 
@@ -104,14 +121,10 @@ public class TicTacToeGame {
 
                     board.printBoard(gameBoard);
 
-                    //check winner. If winner, set gameOver = true. Also check if all squares are full and therefore draw. then set gameOver = true.
-
-                    gameOver = gameLogic.checkBoardFull(gameBoard);
                     playerTwo = false;
 
                 }
             }
-
 
             correct = gameLogic.playAgain();
         }

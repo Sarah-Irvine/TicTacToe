@@ -1,8 +1,6 @@
 
 package org.example;
 
-//import static org.example.Board.array;
-
 import java.util.Scanner;
 
 public class GameLogic {
@@ -43,48 +41,81 @@ public class GameLogic {
     }
 
     public boolean checkBoardFull(String[][] array) {
-        boolean isGameOver = true;
+        boolean isBoardFull = true;
         for(int i=0; i<array.length; i++){
             for(int j=0; j<array[i].length; j++){
                 if(array[i][j].equals(" ")){
-                    isGameOver=false;
+                    isBoardFull=false;
                     break;
                 }
             }
         }
-        return isGameOver;
+        return isBoardFull;
     }
 
 
-
-   /* public String checkWinner(String[][] array) {
-        for (int a = 0; a < 8; a++) {
-            String line = switch (a) {
-                case 0 -> array[0][0] + array[0][1] + array[0][2];
-                case 1 -> array[1][0] + array[1][1] + array[1][2];
-                case 2 -> array[2][0] + array[2][1] + array[2][2];
-                case 3 -> array[0][0] + array[1][0] + array[2][0];
-                case 4 -> array[0][1] + array[1][1] + array[2][1];
-                case 5 -> array[0][2] + array[1][2] + array[2][2];
-                case 6 -> array[0][0] + array[1][1] + array[2][2];
-                case 7 -> array[0][2] + array[1][1] + array[2][0];
-                default -> null;
-            };
-
-            //For X winner
-            if (line.equals("XXX")) {
-                return "X";
-                break;
-            }
-
-            // For O winner
-            else if (line.equals("OOO")) {
-                return "O";
-                break;
-            }
+    //check if there's a winner
+    public boolean checkWinner(String[][] array) {
+        boolean isThereAWinner = false;
+        if((array[0][0] + array[0][1] + array[0][2]).equals("XXX") || (array[0][0] + array[0][1] + array[0][2]).equals("OOO")){
+            isThereAWinner = true;
+        }
+        else if((array[1][0] + array[1][1] + array[1][2]).equals("XXX") || (array[1][0] + array[1][1] + array[1][2]).equals("OOO")){
+            isThereAWinner = true;
+        }
+        else if((array[2][0] + array[2][1] + array[2][2]).equals("XXX") || (array[2][0] + array[2][1] + array[2][2]).equals("OOO")){
+            isThereAWinner = true;
+        }
+        else if((array[0][0] + array[1][0] + array[2][0]).equals("XXX") || (array[0][0] + array[1][0] + array[2][0]).equals("OOO")){
+            isThereAWinner = true;
+        }
+        else if((array[0][1] + array[1][1] + array[2][1]).equals("XXX") || (array[0][1] + array[1][1] + array[2][1]).equals("OOO")){
+            isThereAWinner = true;
+        }
+        else if((array[0][2] + array[1][2] + array[2][2]).equals("XXX") || (array[0][2] + array[1][2] + array[2][2]).equals("OOO")){
+            isThereAWinner = true;
+        }
+        else if((array[0][0] + array[1][1] + array[2][2]).equals("XXX") || (array[0][0] + array[1][1] + array[2][2]).equals("OOO")){
+            isThereAWinner = true;
+        }
+        else if((array[0][2] + array[1][1] + array[2][0]).equals("XXX") || (array[0][2] + array[1][1] + array[2][0]).equals("OOO")){
+            isThereAWinner = true;
+        }
+        else{
 
         }
-    }*/
+
+        return isThereAWinner;
+    }
+
+    //check who the winner is
+   public String nameOfWinner(String[][] array) {
+        String winnerName = "no-one";
+        if( (array[0][0] + array[0][1] + array[0][2]).equals("XXX")
+                || (array[1][0] + array[1][1] + array[1][2]).equals("XXX")
+                || (array[2][0] + array[2][1] + array[2][2]).equals("XXX")
+                || (array[0][0] + array[1][0] + array[2][0]).equals("XXX")
+                || (array[0][1] + array[1][1] + array[2][1]).equals("XXX")
+                || (array[0][2] + array[1][2] + array[2][2]).equals("XXX")
+                || (array[0][0] + array[1][1] + array[2][2]).equals("XXX")
+                || (array[0][2] + array[1][1] + array[2][0]).equals("XXX")){
+            winnerName = "X";
+
+        }
+       else if( (array[0][0] + array[0][1] + array[0][2]).equals("OOO")
+               || (array[1][0] + array[1][1] + array[1][2]).equals("OOO")
+               || (array[2][0] + array[2][1] + array[2][2]).equals("OOO")
+               || (array[0][0] + array[1][0] + array[2][0]).equals("OOO")
+               || (array[0][1] + array[1][1] + array[2][1]).equals("OOO")
+               || (array[0][2] + array[1][2] + array[2][2]).equals("OOO")
+               || (array[0][0] + array[1][1] + array[2][2]).equals("OOO")
+               || (array[0][2] + array[1][1] + array[2][0]).equals("OOO")){
+           winnerName = "O";
+       }
+
+       return winnerName;
+   }
+
 }
 
 
